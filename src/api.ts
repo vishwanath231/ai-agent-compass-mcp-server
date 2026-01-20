@@ -33,7 +33,7 @@ async function initMcpClient() {
 
   if (!openai && !groq) {
     console.warn(
-      "No LLM API keys found (OPENAI_API_KEY or GROQ_API_KEY). Chat will fail."
+      "No LLM API keys found (OPENAI_API_KEY or GROQ_API_KEY). Chat will fail.",
     );
   }
 
@@ -44,7 +44,7 @@ async function initMcpClient() {
 
   client = new Client(
     { name: "api-client", version: "1.0.0" },
-    { capabilities: {} }
+    { capabilities: {} },
   );
 
   await client.connect(transport);
@@ -53,7 +53,7 @@ async function initMcpClient() {
 
   console.log(
     "MCP Client connected. Tools:",
-    tools.map((t) => t.name).join(", ")
+    tools.map((t) => t.name).join(", "),
   );
 }
 
@@ -61,7 +61,11 @@ async function initMcpClient() {
 let messages: any[] = [
   {
     role: "system",
-    content: "You are a helpful assistant. You can use tools to manage users.",
+    // content: "You are a helpful assistant. You can use tools to manage users.",
+    content: `You are a helpful assistant for the Domo AI Agent Compass. 
+You have access to tools for managing Domo users, searching and running Dataflows, querying collections, and managing Workflows.
+CRITICAL: Always prefer using tools over providing code snippets. If a user asks to trigger a workflow, use the 'trigger-workflow-message' tool.
+If required inputs for a tool are missing (like modelId or messageName for workflows), ask the user for them instead of giving code or making up values.`,
   },
 ];
 

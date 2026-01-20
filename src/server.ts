@@ -11,8 +11,8 @@ const server = new McpServer({
   version: "0.0.1",
 });
 
-const DOMO_DEVELOPER_TOKEN="DDCI76138cf6c0d4d712a99283d40a94e6d44a89ca1bdac63da4"
-
+const DOMO_DEVELOPER_TOKEN =
+  "DDCI76138cf6c0d4d712a99283d40a94e6d44a89ca1bdac63da4";
 
 /**
  * Get the list of all users from the domo. Use limit/offset to paginate. Use this to find users or count them.
@@ -61,7 +61,7 @@ server.registerTool(
           headers: {
             "X-DOMO-Developer-Token": DOMO_DEVELOPER_TOKEN,
           },
-        }
+        },
       );
 
       let allUsers = usersResponse.data;
@@ -101,7 +101,7 @@ server.registerTool(
       if (role) {
         const roleTerm = role.toLowerCase();
         allUsers = allUsers.filter(
-          (u: any) => u.role && u.role.toLowerCase() === roleTerm
+          (u: any) => u.role && u.role.toLowerCase() === roleTerm,
         );
       }
 
@@ -138,7 +138,7 @@ server.registerTool(
                 users: pagedUsers,
               },
               null,
-              2
+              2,
             ),
           },
         ],
@@ -149,14 +149,14 @@ server.registerTool(
           {
             type: "text",
             text: `Error fetching users: ${error.message} - ${JSON.stringify(
-              error.response?.data || ""
+              error.response?.data || "",
             )}`,
           },
         ],
         isError: true,
       };
     }
-  }
+  },
 );
 
 /**
@@ -216,7 +216,7 @@ server.registerTool(
             "Content-Type": "application/json",
             "X-DOMO-Developer-Token": DOMO_DEVELOPER_TOKEN,
           },
-        }
+        },
       );
 
       const simplifiedResults = (response.data.searchObjects || []).map(
@@ -231,7 +231,7 @@ server.registerTool(
             name: ds.name,
             id: ds.id,
           })),
-        })
+        }),
       );
 
       return {
@@ -244,7 +244,7 @@ server.registerTool(
                 results: simplifiedResults,
               },
               null,
-              2
+              2,
             ),
           },
         ],
@@ -262,7 +262,7 @@ server.registerTool(
         isError: true,
       };
     }
-  }
+  },
 );
 
 /**
@@ -287,7 +287,7 @@ server.registerTool(
           headers: {
             "X-DOMO-Developer-Token": DOMO_DEVELOPER_TOKEN,
           },
-        }
+        },
       );
 
       return {
@@ -311,7 +311,7 @@ server.registerTool(
         isError: true,
       };
     }
-  }
+  },
 );
 
 /**
@@ -329,7 +329,7 @@ server.registerTool(
       query: z
         .string()
         .describe(
-          "The search term for collection names (e.g., 'rostering_events')"
+          "The search term for collection names (e.g., 'rostering_events')",
         ),
       pageSize: z
         .number()
@@ -364,7 +364,7 @@ server.registerTool(
             "Content-Type": "application/json",
             "X-DOMO-Developer-Token": DOMO_DEVELOPER_TOKEN,
           },
-        }
+        },
       );
 
       const ownersMap = new Map();
@@ -378,7 +378,7 @@ server.registerTool(
           name: c.name,
           createdOn: c.createdOn,
           ownerName: ownersMap.get(String(c.owner)) || "Unknown",
-        })
+        }),
       );
 
       return {
@@ -391,7 +391,7 @@ server.registerTool(
                 collections: simplifiedCollections,
               },
               null,
-              2
+              2,
             ),
           },
         ],
@@ -409,7 +409,7 @@ server.registerTool(
         isError: true,
       };
     }
-  }
+  },
 );
 
 /**
@@ -435,7 +435,7 @@ server.registerTool(
           headers: {
             "X-DOMO-Developer-Token": DOMO_DEVELOPER_TOKEN,
           },
-        }
+        },
       );
 
       const simplifiedDocuments = (response.data || []).map((doc: any) => ({
@@ -469,7 +469,7 @@ server.registerTool(
         isError: true,
       };
     }
-  }
+  },
 );
 
 /**
@@ -526,7 +526,7 @@ server.registerTool(
             "Content-Type": "application/json",
             "X-DOMO-Developer-Token": DOMO_DEVELOPER_TOKEN,
           },
-        }
+        },
       );
 
       const simplifiedResults = (response.data.searchObjects || []).map(
@@ -539,8 +539,8 @@ server.registerTool(
           totalVersions: obj.totalVersions,
           deployedVersions: obj.deployedVersions,
           createDate: obj.createDate,
-          lastModified: obj.lastModified
-        })
+          lastModified: obj.lastModified,
+        }),
       );
 
       return {
@@ -553,7 +553,7 @@ server.registerTool(
                 results: simplifiedResults,
               },
               null,
-              2
+              2,
             ),
           },
         ],
@@ -571,7 +571,7 @@ server.registerTool(
         isError: true,
       };
     }
-  }
+  },
 );
 
 /**
@@ -598,7 +598,7 @@ server.registerTool(
           headers: {
             "X-DOMO-Developer-Token": DOMO_DEVELOPER_TOKEN,
           },
-        }
+        },
       );
 
       const simplifiedBasicInfo = {
@@ -613,14 +613,14 @@ server.registerTool(
           version: v.version,
           createdOn: v.createdOn,
           active: v.active,
-        })
+        }),
       );
 
       const simplifiedPermissions = (response.data.userPermissions || []).map(
         (p: any) => ({
           name: p.name,
           permissions: p.permissions,
-        })
+        }),
       );
 
       return {
@@ -634,7 +634,7 @@ server.registerTool(
                 userPermissions: simplifiedPermissions,
               },
               null,
-              2
+              2,
             ),
           },
         ],
@@ -652,7 +652,148 @@ server.registerTool(
         isError: true,
       };
     }
-  }
+  },
+);
+
+/**
+ * Create a new Domo workflow model.
+ *
+ * @param name The name of the workflow model
+ * @param description The description of the workflow model
+ * @param version The initial version of the workflow model (default '1.0.0')
+ */
+server.registerTool(
+  "create-workflow-model",
+  {
+    description: "Create a new Domo workflow model.",
+    inputSchema: z.object({
+      name: z.string().describe("The name of the workflow model"),
+      description: z.string().describe("The description of the workflow model"),
+      version: z
+        .string()
+        .optional()
+        .default("1.0.0")
+        .describe("The initial version (e.g., '1.0.0')"),
+    }),
+  },
+  async ({ name, description, version }) => {
+    try {
+      const data = {
+        name,
+        description,
+        versions: [{ version }],
+      };
+
+      const response = await axios.post(
+        "https://gwcteq-partner.domo.com/api/workflow/v2/models",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "X-DOMO-Developer-Token": DOMO_DEVELOPER_TOKEN,
+          },
+        },
+      );
+
+      return {
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify(response.data, null, 2),
+          },
+        ],
+      };
+    } catch (error: any) {
+      return {
+        content: [
+          {
+            type: "text",
+            text: `Error creating workflow model: ${
+              error.message
+            } - ${JSON.stringify(error.response?.data || "")}`,
+          },
+        ],
+        isError: true,
+      };
+    }
+  },
+);
+
+/**
+ * Trigger a Domo workflow instance by sending a message.
+ *
+ * @param messageName The name of the message to send (e.g., 'Start Ai tester')
+ * @param version The version of the workflow model (e.g., '1.0.0')
+ * @param modelId The ID of the workflow model (e.g., '6a51dd09-...')
+ * @param data (Optional) An object containing any data required by the workflow message.
+ */
+server.registerTool(
+  "trigger-workflow-message",
+  {
+    description: "Trigger a Domo workflow instance by sending a message.",
+    inputSchema: z.object({
+      messageName: z
+        .string()
+        .describe("The name of the message to send (e.g., 'Start Ai tester')"),
+      version: z
+        .string()
+        .describe("The version of the workflow model (e.g., '1.0.0')"),
+      modelId: z
+        .string()
+        .describe("The ID of the workflow model (e.g., '6a51dd09-...')"),
+      data: z
+        .record(z.any())
+        .optional()
+        .describe(
+          'An object containing data for the workflow. Format: { key: value }. For example: { "userId": 123, "status": "active" }',
+        ),
+    }),
+  },
+  async ({ messageName, version, modelId, data = {} }) => {
+    try {
+      const payload = {
+        messageName,
+        version,
+        modelId,
+        data,
+      };
+
+      const response = await axios.post(
+        "https://gwcteq-partner.domo.com/api/workflow/v1/instances/message",
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "X-DOMO-Developer-Token": DOMO_DEVELOPER_TOKEN,
+          },
+        },
+      );
+
+      return {
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify(response.data, null, 2),
+          },
+        ],
+      };
+    } catch (error: any) {
+      const errorMessage = `Error triggering workflow message. 
+Ensure your 'data' parameter is a valid JSON object. 
+Example Format: { "key1": "value1", "key2": 123 }
+Full Error: ${error.message} - ${JSON.stringify(error.response?.data || "")}`;
+
+      return {
+        content: [
+          {
+            type: "text",
+            text: errorMessage,
+          },
+        ],
+        isError: true,
+      };
+    }
+  },
 );
 
 async function main() {
