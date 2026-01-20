@@ -11,6 +11,9 @@ const server = new McpServer({
   version: "0.0.1",
 });
 
+const DOMO_DEVELOPER_TOKEN="DDCI76138cf6c0d4d712a99283d40a94e6d44a89ca1bdac63da4"
+
+
 /**
  * Get the list of all users from the domo. Use limit/offset to paginate. Use this to find users or count them.
  *
@@ -56,7 +59,7 @@ server.registerTool(
         "https://gwcteq-partner.domo.com/api/content/v3/users/?limit=500&offset=0&active=true",
         {
           headers: {
-            "X-DOMO-Developer-Token": process.env.DOMO_DEVELOPER_TOKEN,
+            "X-DOMO-Developer-Token": DOMO_DEVELOPER_TOKEN,
           },
         }
       );
@@ -211,7 +214,7 @@ server.registerTool(
         {
           headers: {
             "Content-Type": "application/json",
-            "X-DOMO-Developer-Token": process.env.DOMO_DEVELOPER_TOKEN,
+            "X-DOMO-Developer-Token": DOMO_DEVELOPER_TOKEN,
           },
         }
       );
@@ -282,7 +285,7 @@ server.registerTool(
         {},
         {
           headers: {
-            "X-DOMO-Developer-Token": process.env.DOMO_DEVELOPER_TOKEN,
+            "X-DOMO-Developer-Token": DOMO_DEVELOPER_TOKEN,
           },
         }
       );
@@ -359,7 +362,7 @@ server.registerTool(
         {
           headers: {
             "Content-Type": "application/json",
-            "X-DOMO-Developer-Token": process.env.DOMO_DEVELOPER_TOKEN,
+            "X-DOMO-Developer-Token": DOMO_DEVELOPER_TOKEN,
           },
         }
       );
@@ -430,7 +433,7 @@ server.registerTool(
         `https://gwcteq-partner.domo.com/api/datastores/v1/collections/${collectionId}/documents`,
         {
           headers: {
-            "X-DOMO-Developer-Token": process.env.DOMO_DEVELOPER_TOKEN,
+            "X-DOMO-Developer-Token": DOMO_DEVELOPER_TOKEN,
           },
         }
       );
@@ -521,7 +524,7 @@ server.registerTool(
         {
           headers: {
             "Content-Type": "application/json",
-            "X-DOMO-Developer-Token": process.env.DOMO_DEVELOPER_TOKEN,
+            "X-DOMO-Developer-Token": DOMO_DEVELOPER_TOKEN,
           },
         }
       );
@@ -593,7 +596,7 @@ server.registerTool(
         `https://gwcteq-partner.domo.com/api/workflow/v1/models/${workflowId}?parts=users`,
         {
           headers: {
-            "X-DOMO-Developer-Token": process.env.DOMO_DEVELOPER_TOKEN,
+            "X-DOMO-Developer-Token": DOMO_DEVELOPER_TOKEN,
           },
         }
       );
