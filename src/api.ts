@@ -252,7 +252,7 @@ async function fetchRealCreditsMap(token: string): Promise<Map<string, number>> 
       SELECT entityId, SUM(creditsUsed)
       FROM credit_usage
       WHERE entityType = 'Workflow'
-      AND date >= CURRENT_DATE - INTERVAL '30' DAY
+        AND date >= CURRENT_DATE - INTERVAL '30' DAY
       GROUP BY entityId
     `;
 
